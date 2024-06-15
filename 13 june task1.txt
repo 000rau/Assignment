@@ -1,0 +1,139 @@
+Assignment 1: Analyze a given business scenario and create an ER diagram that includes entities, relationships, attributes, and cardinality. Ensure that the diagram reflects proper normalization up to the third normal form.
+
+Business Scenario:
+The bookstore sells books, manages inventory, and handles customer orders. Each book has a unique ISBN, title, author(s), publisher, and genre. Customers can place orders for one or more books, and each order has a unique order ID, date, and total cost. Customers provide their contact information (name, address, email, phone). Each order can include multiple books, and each book can be part of multiple orders.
+
+Entities:
+1. Book
+2. Author
+3. Publisher
+4. Genre
+5. Customer
+6. Order
+7. Order_Item (as a bridge entity between Order and Book)
+
+*Attributes: *
+
+*Book: *
+- ISBN (Primary Key)
+- Title
+- Author(s)
+- Publisher
+- Genre
+- Price
+
+*Author: *
+- Author_ID (Primary Key)
+- Author_Name
+
+*Publisher: *
+- Publisher_ID (Primary Key)
+- Publisher_Name
+
+*Genre: *
+- Genre_ID (Primary Key)
+- Genre_Name
+
+Customer: *
+- Customer_ID (Primary Key)
+- Name
+- Address
+- Email
+- Phone
+
+*Order:*
+- Order_ID (Primary Key)
+- Date
+- Total_Cost
+
+*Order_Item:*
+- Order_Item_ID (Primary Key)
+- Order_ID (Foreign Key)
+- ISBN (Foreign Key)
+- Quantity
+
+*Relationships:*
+1. Book - Author: Many-to-Many (A book can have multiple authors; an author can write multiple books.)
+2. Book - Publisher: Many-to-One (Many books can have the same publisher.)
+3. Book - Genre: Many-to-Many (A book can belong to multiple genres; a genre can have multiple books.)
+4. Customer - Order: One-to-Many (A customer can place multiple orders; each order is placed by one customer.)
+5. Order - Order_Item: One-to-Many (An order can have multiple order items; each order item belongs to one order.)
+6. Book - Order_Item: One-to-Many (Each order item corresponds to one book; a book can be part of multiple order items.)
+
+*Cardinality:*
+1. Book - Author: Many-to-Many
+2. Book - Publisher: Many-to-One
+3. Book - Genre: Many-to-Many
+4. Customer - Order: One-to-Many
+5. Order - Order_Item: One-to-Many
+6. Book - Order_Item: One-to-Many
+
+*ER Diagram:*
+
+
+             +---------+       +---------+
+             |  Book   |       |  Genre  |
+             +---------+       +---------+
+             | ISBN    |       | Genre_ID|
+             | Title   |       | Name    |
+             | Author  |       +---------+
+             | Publisher| 
+             | Genre   |       +---------+
+             +---------+       | Author  |
+                   |           +---------+
+                   |           | Author_ID|
+                   |           | Name    |
+                   |           +---------+
+                   |
+                   |
+                   |     +----------+
+                   +-----| Publisher|
+                   |     +----------+
+                   |     | Pub_ID   |
+                   |     | Name     |
+                   |     +----------+
+                   |
+                   |
+                   |     +----------+
+                   +-----| Customer |
+                         +----------+
+                         | Cust_ID  |
+                         | Name     |
+                         | Address  |
+                         | Email    |
+                         | Phone    |
+                         +----------+
+                               |
+                               |
+                               |   +----------+
+                               +---|  Order   |
+                                   +----------+
+                                   | Order_ID |
+                                   | Date     |
+                                   | Total_Cost|
+                                   | Cust_ID  |
+                                   +----------+
+                                        |
+                                        |
+                         +--------------------------+
+                         |        Order_Item        |
+                         +--------------------------+
+                         | Order_Item_ID            |
+                         | Order_ID (FK)            |
+                         | ISBN (FK)                |
+                         | Quantity                 |
+                         +--------------------------+
+
+
+This ER diagram represents the entities, relationships, attributes, and cardinality of the given business scenario, ensuring proper normalization up to the third normal form.
+
+
+
+
+
+
+
+
+
+
+
